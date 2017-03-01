@@ -5,8 +5,8 @@
  */
 package com.mikael0.soap.client;
 
-import com.mikael0.soap.client.generated.Person;
-import com.mikael0.soap.client.generated.PersonService;
+import com.mikael0.soap.client.generated.j2ee.Person;
+import com.mikael0.soap.client.generated.j2ee.PersonService;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,7 +15,7 @@ import java.util.List;
 public class WebServiceClient {
 
     public static void main(String[] args) throws MalformedURLException {
-        URL url = new URL("http://localhost:8080/PersonService?wsdl");
+        URL url = new URL("http://localhost:8163/PersonService/PersonService?wsdl");
         PersonService personService = new PersonService(url);
         Person search = new Person();
         search.setAge(27);
