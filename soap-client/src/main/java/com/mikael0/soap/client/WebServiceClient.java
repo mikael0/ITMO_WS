@@ -5,6 +5,7 @@
  */
 package com.mikael0.soap.client;
 
+import com.mikael0.soap.client.generated.NoDataException;
 import com.mikael0.soap.client.generated.Person;
 import com.mikael0.soap.client.generated.PersonService;
 
@@ -61,7 +62,12 @@ public class WebServiceClient {
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
-        personService.getPersonWebServicePort().updatePerson(id, null, null, 42, null, null);
+        try {
+            personService.getPersonWebServicePort().updatePerson(id, null, null, 42, null, null);
+        }
+        catch (NoDataException e){
+            e.printStackTrace();
+        }
         persons = personService.getPersonWebServicePort().getPersons();
         for (Person person : persons) {
             System.out.println("name: " + person.getName()
@@ -75,5 +81,12 @@ public class WebServiceClient {
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
+        try {
+            personService.getPersonWebServicePort().updatePerson(666l, null, null, 42, null, null);
+        }
+        catch (NoDataException e){
+            e.printStackTrace();
+        }
     }
+
 }
