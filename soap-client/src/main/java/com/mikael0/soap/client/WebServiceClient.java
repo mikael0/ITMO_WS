@@ -5,17 +5,23 @@
  */
 package com.mikael0.soap.client;
 
-import com.mikael0.soap.client.generated.j2ee.Person;
-import com.mikael0.soap.client.generated.j2ee.PersonService;
+import com.mikael0.soap.client.generated.Person;
+import com.mikael0.soap.client.generated.PersonService;
 
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class WebServiceClient {
 
     public static void main(String[] args) throws MalformedURLException {
-        URL url = new URL("http://localhost:8163/PersonService/PersonService?wsdl");
+        URL url = new URL("http://localhost:8080/PersonService?wsdl");
         PersonService personService = new PersonService(url);
         Person search = new Person();
         search.setAge(27);
@@ -33,6 +39,41 @@ public class WebServiceClient {
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
         System.out.println("Total found persons: " + searchPersons.size());
-        
+
+        Date birth = new Date();
+        try {
+            birth = new SimpleDateFormat("ddMMyyyy").parse("04061996");
+        } catch (ParseException e) {
+
+        }
+        GregorianCalendar gcal = new GregorianCalendar();
+        gcal.setTime(birth);
+        XMLGregorianCalendar xmlgcal = null;
+        try {
+            xmlgcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+        } catch (Exception e) {
+        }
+        Long id = personService.getPersonWebServicePort().createPerson("Mikhail", "Belenko", 20, "M", xmlgcal);
+
+        persons = personService.getPersonWebServicePort().getPersons();
+        for (Person person : persons) {
+            System.out.println("name: " + person.getName()
+                    + ", surname: " + person.getSurname() + ", age: " + person.getAge()
+                    + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
+        }
+        personService.getPersonWebServicePort().updatePerson(id, null, null, 42, null, null);
+        persons = personService.getPersonWebServicePort().getPersons();
+        for (Person person : persons) {
+            System.out.println("name: " + person.getName()
+                    + ", surname: " + person.getSurname() + ", age: " + person.getAge()
+                    + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
+        }
+        personService.getPersonWebServicePort().deletePerson(id);
+        persons = personService.getPersonWebServicePort().getPersons();
+        for (Person person : persons) {
+            System.out.println("name: " + person.getName()
+                    + ", surname: " + person.getSurname() + ", age: " + person.getAge()
+                    + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
+        }
     }
 }

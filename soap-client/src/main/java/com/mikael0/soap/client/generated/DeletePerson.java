@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getPersonsByParameters complex type.
+ * <p>Java class for deletePerson complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getPersonsByParameters">
+ * &lt;complexType name="deletePerson">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://standalonecrud.soap.mikael0.com/}person" minOccurs="0"/>
+ *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -26,22 +26,22 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPersonsByParameters", propOrder = {
+@XmlType(name = "deletePerson", propOrder = {
     "arg0"
 })
-public class GetPersonsByParameters {
+public class DeletePerson {
 
-    protected Person arg0;
+    protected Long arg0;
 
     /**
      * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
-     *     {@link Person }
+     *     {@link Long }
      *     
      */
-    public Person getArg0() {
+    public Long getArg0() {
         return arg0;
     }
 
@@ -50,10 +50,10 @@ public class GetPersonsByParameters {
      * 
      * @param value
      *     allowed object is
-     *     {@link Person }
+     *     {@link Long }
      *     
      */
-    public void setArg0(Person value) {
+    public void setArg0(Long value) {
         this.arg0 = value;
     }
 

@@ -3,20 +3,21 @@ package com.mikael0.soap.client.generated;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getPersonsByParameters complex type.
+ * <p>Java class for createPersonResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getPersonsByParameters">
+ * &lt;complexType name="createPersonResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://standalonecrud.soap.mikael0.com/}person" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -26,35 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPersonsByParameters", propOrder = {
-    "arg0"
+@XmlType(name = "createPersonResponse", propOrder = {
+    "_return"
 })
-public class GetPersonsByParameters {
+public class CreatePersonResponse {
 
-    protected Person arg0;
+    @XmlElement(name = "return")
+    protected Long _return;
 
     /**
-     * Gets the value of the arg0 property.
+     * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link Person }
+     *     {@link Long }
      *     
      */
-    public Person getArg0() {
-        return arg0;
+    public Long getReturn() {
+        return _return;
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Sets the value of the return property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Person }
+     *     {@link Long }
      *     
      */
-    public void setArg0(Person value) {
-        this.arg0 = value;
+    public void setReturn(Long value) {
+        this._return = value;
     }
 
 }

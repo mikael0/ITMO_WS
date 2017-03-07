@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "PersonService", targetNamespace = "http://standalone.soap.mikael0.com/", wsdlLocation = "http://localhost:8080/PersonService?wsdl")
+@WebServiceClient(name = "PersonService", targetNamespace = "http://standalonecrud.soap.mikael0.com/", wsdlLocation = "http://localhost:8080/PersonService?wsdl")
 public class PersonService
     extends Service
 {
 
     private final static URL PERSONSERVICE_WSDL_LOCATION;
     private final static WebServiceException PERSONSERVICE_EXCEPTION;
-    private final static QName PERSONSERVICE_QNAME = new QName("http://standalone.soap.mikael0.com/", "PersonService");
+    private final static QName PERSONSERVICE_QNAME = new QName("http://standalonecrud.soap.mikael0.com/", "PersonService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class PersonService
      */
     @WebEndpoint(name = "PersonWebServicePort")
     public PersonWebService getPersonWebServicePort() {
-        return super.getPort(new QName("http://standalone.soap.mikael0.com/", "PersonWebServicePort"), PersonWebService.class);
+        return super.getPort(new QName("http://standalonecrud.soap.mikael0.com/", "PersonWebServicePort"), PersonWebService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class PersonService
      */
     @WebEndpoint(name = "PersonWebServicePort")
     public PersonWebService getPersonWebServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://standalone.soap.mikael0.com/", "PersonWebServicePort"), PersonWebService.class, features);
+        return super.getPort(new QName("http://standalonecrud.soap.mikael0.com/", "PersonWebServicePort"), PersonWebService.class, features);
     }
 
     private static URL __getWsdlLocation() {

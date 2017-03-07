@@ -7,6 +7,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Action;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
@@ -18,24 +19,12 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "PersonWebService", targetNamespace = "http://standalone.soap.mikael0.com/")
+@WebService(name = "PersonWebService", targetNamespace = "http://standalonecrud.soap.mikael0.com/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
 public interface PersonWebService {
 
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.mikael0.soap.client.generated.Person>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getPersons", targetNamespace = "http://standalone.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersons")
-    @ResponseWrapper(localName = "getPersonsResponse", targetNamespace = "http://standalone.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsResponse")
-    @Action(input = "http://standalone.soap.mikael0.com/PersonWebService/getPersonsRequest", output = "http://standalone.soap.mikael0.com/PersonWebService/getPersonsResponse")
-    public List<Person> getPersons();
 
     /**
      * 
@@ -45,11 +34,95 @@ public interface PersonWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getPersonsByParameters", targetNamespace = "http://standalone.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsByParameters")
-    @ResponseWrapper(localName = "getPersonsByParametersResponse", targetNamespace = "http://standalone.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsByParametersResponse")
-    @Action(input = "http://standalone.soap.mikael0.com/PersonWebService/getPersonsByParametersRequest", output = "http://standalone.soap.mikael0.com/PersonWebService/getPersonsByParametersResponse")
+    @RequestWrapper(localName = "getPersonsByParameters", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsByParameters")
+    @ResponseWrapper(localName = "getPersonsByParametersResponse", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsByParametersResponse")
+    @Action(input = "http://standalonecrud.soap.mikael0.com/PersonWebService/getPersonsByParametersRequest", output = "http://standalonecrud.soap.mikael0.com/PersonWebService/getPersonsByParametersResponse")
     public List<Person> getPersonsByParameters(
         @WebParam(name = "arg0", targetNamespace = "")
         Person arg0);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg4
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.Long
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createPerson", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.CreatePerson")
+    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.CreatePersonResponse")
+    @Action(input = "http://standalonecrud.soap.mikael0.com/PersonWebService/createPersonRequest", output = "http://standalonecrud.soap.mikael0.com/PersonWebService/createPersonResponse")
+    public Long createPerson(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3,
+        @WebParam(name = "arg4", targetNamespace = "")
+        XMLGregorianCalendar arg4);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg5
+     * @param arg4
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updatePerson", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.UpdatePerson")
+    @ResponseWrapper(localName = "updatePersonResponse", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.UpdatePersonResponse")
+    @Action(input = "http://standalonecrud.soap.mikael0.com/PersonWebService/updatePersonRequest", output = "http://standalonecrud.soap.mikael0.com/PersonWebService/updatePersonResponse")
+    public int updatePerson(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Long arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        int arg3,
+        @WebParam(name = "arg4", targetNamespace = "")
+        String arg4,
+        @WebParam(name = "arg5", targetNamespace = "")
+        XMLGregorianCalendar arg5);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.mikael0.soap.client.generated.Person>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getPersons", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersons")
+    @ResponseWrapper(localName = "getPersonsResponse", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.GetPersonsResponse")
+    @Action(input = "http://standalonecrud.soap.mikael0.com/PersonWebService/getPersonsRequest", output = "http://standalonecrud.soap.mikael0.com/PersonWebService/getPersonsResponse")
+    public List<Person> getPersons();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePerson", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.DeletePerson")
+    @ResponseWrapper(localName = "deletePersonResponse", targetNamespace = "http://standalonecrud.soap.mikael0.com/", className = "com.mikael0.soap.client.generated.DeletePersonResponse")
+    @Action(input = "http://standalonecrud.soap.mikael0.com/PersonWebService/deletePersonRequest", output = "http://standalonecrud.soap.mikael0.com/PersonWebService/deletePersonResponse")
+    public int deletePerson(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Long arg0);
 
 }
