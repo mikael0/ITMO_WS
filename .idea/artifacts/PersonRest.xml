@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="PersonRest">
+    <output-path>$PROJECT_DIR$/out/artifacts/PersonRest</output-path>
+    <root id="archive" name="PersonRest.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="rest2jee" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
