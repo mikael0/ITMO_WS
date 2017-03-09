@@ -63,15 +63,15 @@ public class PostgreSQLDAO {
         try (Connection connection = ConnectionUtil.getConnection()) {
             StringBuilder query = new StringBuilder("UPDATE persons SET ");
             if (name!= null)
-                query.append("name = '" + name + "', ");
+                query.append("name = \'" + name + "\', ");
             if (surname != null)
-                query.append("surname = '" + surname + "', ");
+                query.append("surname = \'" + surname + "\', ");
             if (age != 0)
-                query.append("age = " + age + ", ");
+                query.append("age = \'" + age + "\', ");
             if (sex != null)
-                query.append("sex = '" + sex + "', ");
+                query.append("sex = \'" + sex + "\', ");
             if (birth != null)
-                query.append("birth = " + birth + ", ");
+                query.append("birth = \'" + birth + "\', ");
             query.replace(query.lastIndexOf(","), query.lastIndexOf(",") + 1, "");
             query.append("WHERE id = "+ id);
             System.out.println(query);
