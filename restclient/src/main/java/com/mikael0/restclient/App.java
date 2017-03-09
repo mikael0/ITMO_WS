@@ -27,6 +27,12 @@ public class App {
             printList(getPersons(client, null, null, null, null, null));
             deletePerson(client, Long.parseLong(id));
             printList(getPersons(client, null, null, null, null, null));
+            try {
+                deletePerson(client, null);
+            }
+            catch (IllegalStateException e){
+                System.out.println(e.getMessage());
+            }
         }
 
         private static List<Person> getPersons(Client client,
@@ -83,12 +89,13 @@ public class App {
             if (birth != null) {
                 webResource = webResource.queryParam("birth",new Long(birth.getTime()).toString());
             }
-            webResource = webResource.queryParam("id", id.toString());
+            if (id != null)
+                webResource = webResource.queryParam("id", id.toString());
             ClientResponse response =
                     webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
             System.out.println(response.getStatus());
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
-                throw new IllegalStateException("Request failed");
+                throw new IllegalStateException(response.getEntity(String.class));
             }
             GenericType<String> type = new GenericType<String>() {};
             return response.getEntity(type);
@@ -97,11 +104,12 @@ public class App {
         private static String deletePerson(Client client,
                                                  @NotNull Long id) {
             WebResource webResource = client.resource(URL + "/delete");
-            webResource = webResource.queryParam("id", id.toString());
+            if (id != null)
+                webResource = webResource.queryParam("id", id.toString());
             ClientResponse response =
                     webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
-                throw new IllegalStateException("Request failed");
+                throw new IllegalStateException(response.getEntity(String.class));
             }
             GenericType<String> type = new GenericType<String>() {};
             return response.getEntity(type);
