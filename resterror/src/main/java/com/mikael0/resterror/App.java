@@ -13,7 +13,7 @@ import java.net.URI;
  * Created by mikael0 on 08.03.17.
  */
 public class App {
-    private static final URI BASE_URI = URI.create("http://localhost:8080/rest/");
+    private static final URI BASE_URI = URI.create("http://localhost:8085/rest/");
     public static void main(String[] args) {
         System.out.println("Starting");
         HttpServer server = null;

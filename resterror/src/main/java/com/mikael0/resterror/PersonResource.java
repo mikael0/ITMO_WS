@@ -1,9 +1,6 @@
 package com.mikael0.resterror;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +47,7 @@ public class PersonResource {
         return persons;
     }
 
-    @GET
+    @POST
     @Path("create")
     public String createPerson(@QueryParam("name") String name,
                              @QueryParam("surname") String surname,
@@ -61,7 +58,7 @@ public class PersonResource {
         return dao.createPerson(name, surname, age, sex, new Date(millis)).toString();
     }
 
-    @GET
+    @POST
     @Path("update")
     public String updatePerson(@QueryParam("id") Long id,
                             @QueryParam("name") String name,
@@ -77,7 +74,7 @@ public class PersonResource {
         return ret;
     }
 
-    @GET
+    @POST
     @Path("delete")
     public String deletePerson(@QueryParam("id") Long id) throws NoDataException{
         if (id == null)

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by mikael0 on 08.03.17.
  */
 public class App {
-        private static final String URL = "http://localhost:8080/rest/persons";
+        private static final String URL = "http://localhost:8085/rest/persons";
 
         public static void main(String[] args) {
             Client client = Client.create();
@@ -92,7 +92,7 @@ public class App {
             if (id != null)
                 webResource = webResource.queryParam("id", id.toString());
             ClientResponse response =
-                    webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+                    webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
             System.out.println(response.getStatus());
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
                 throw new IllegalStateException(response.getEntity(String.class));
@@ -107,7 +107,7 @@ public class App {
             if (id != null)
                 webResource = webResource.queryParam("id", id.toString());
             ClientResponse response =
-                    webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+                    webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
                 throw new IllegalStateException(response.getEntity(String.class));
             }
@@ -128,7 +128,7 @@ public class App {
             webResource = webResource.queryParam("sex", sex);
             webResource = webResource.queryParam("birth", new Long(birth.getTime()).toString());
             ClientResponse response =
-                    webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+                    webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
             System.out.println(response.getStatus());
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
                 throw new IllegalStateException("Request failed");
