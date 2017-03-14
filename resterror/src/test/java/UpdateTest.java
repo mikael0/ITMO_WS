@@ -1,6 +1,7 @@
 import com.mikael0.resterror.NoDataException;
 import com.mikael0.resterror.Person;
 import com.mikael0.resterror.PersonResource;
+import com.mikael0.resterror.PostgreSQLDAO;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,5 +38,12 @@ public class UpdateTest {
         assertEquals(0, ret);
     }
 
+    @Test
+    public void testDaoUpdate(){
+        Integer ret = null;
+        ret = new PostgreSQLDAO().updatePerson(13l, "NAME", null, 0, null, null);
+        assertNotNull(ret);
+        assertEquals(new Long(0), ret);
+    }
 
 }

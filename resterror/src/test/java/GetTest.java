@@ -1,5 +1,6 @@
 import com.mikael0.resterror.Person;
 import com.mikael0.resterror.PersonResource;
+import com.mikael0.resterror.PostgreSQLDAO;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,6 +23,19 @@ public class GetTest {
     @Test
     public void testGet(){
         List<Person> ret = service.getPersons();
+        assertNotNull(ret);
+        for (Person person : ret){
+            assertNotNull(person.getName());
+            assertNotNull(person.getSurname());
+            assertNotNull(person.getAge());
+            assertNotNull(person.getSex());
+            assertNotNull(person.getBirth());
+        }
+    }
+
+    @Test
+    public void testDaoGet(){
+        List<Person> ret = new PostgreSQLDAO().getPersons("");
         assertNotNull(ret);
         for (Person person : ret){
             assertNotNull(person.getName());

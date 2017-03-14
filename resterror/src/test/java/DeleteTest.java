@@ -1,5 +1,6 @@
 import com.mikael0.resterror.NoDataException;
 import com.mikael0.resterror.PersonResource;
+import com.mikael0.resterror.PostgreSQLDAO;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -32,5 +33,12 @@ public class DeleteTest {
         assertEquals(0, ret);
     }
 
+    @Test
+    public void testDaoDelete(){
+        Integer ret = null;
+        ret = new PostgreSQLDAO().deletePerson(13l);
+        assertNotNull(ret);
+        assertEquals(new Long(0), ret);
+    }
 
 }
