@@ -5,6 +5,7 @@ import com.mikael0.resterror.PostgreSQLDAO;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.ws.rs.core.HttpHeaders;
 import java.util.List;
 
 import static junit.framework.Assert.assertNotNull;
@@ -29,7 +30,7 @@ public class UpdateTest {
     public void testUpdate(){
         String ret = null;
         try {
-             ret = service.updatePerson(13l, "NAME", null, 0, null, null);
+             ret = service.updatePerson(13l, "NAME", null, 0, null, null, "mikael0", "password");
         }
         catch (NoDataException e){
             fail();

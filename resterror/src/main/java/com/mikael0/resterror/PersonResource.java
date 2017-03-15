@@ -1,9 +1,13 @@
 package com.mikael0.resterror;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.xml.ws.handler.MessageContext;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mikael0 on 08.03.17.
@@ -11,6 +15,10 @@ import java.util.List;
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
+
+    private boolean authenticate(String username, String password){
+        return username.equals("mikael0") && password.equals("password");
+    }
 
     @GET
     @Path("getByParams")
@@ -50,12 +58,17 @@ public class PersonResource {
     @POST
     @Path("create")
     public String createPerson(@QueryParam("name") String name,
-                             @QueryParam("surname") String surname,
-                             @QueryParam("age") int age,
-                             @QueryParam("sex") String sex,
-                             @QueryParam("birth") Long millis){
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.createPerson(name, surname, age, sex, new Date(millis)).toString();
+                               @QueryParam("surname") String surname,
+                               @QueryParam("age") int age,
+                               @QueryParam("sex") String sex,
+                               @QueryParam("birth") Long millis,
+                               @HeaderParam("Username") String username,
+                               @HeaderParam("Password") String password) {
+        if (authenticate(username, password)) {
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            return dao.createPerson(name, surname, age, sex, new Date(millis)).toString();
+        }
+        return null;
     }
 
     @POST
@@ -65,21 +78,31 @@ public class PersonResource {
                             @QueryParam("surname") String surname,
                             @QueryParam("age") int age,
                             @QueryParam("sex") String sex,
-                            @QueryParam("birth") Long millis)
+                            @QueryParam("birth") Long millis,
+                            @HeaderParam("Username") String username,
+                            @HeaderParam("Password") String password)
                             throws NoDataException {
         if (id == null)
             throw NoDataException.DEFAULT_INSTANCE;
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        String ret = dao.updatePerson(id, name, surname, age, sex, millis == null ? null : new Date(millis)).toString();
-        return ret;
+        if (authenticate(username, password)) {
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            String ret = dao.updatePerson(id, name, surname, age, sex, millis == null ? null : new Date(millis)).toString();
+            return ret;
+        }
+        return new Integer(1).toString();
     }
 
     @POST
     @Path("delete")
-    public String deletePerson(@QueryParam("id") Long id) throws NoDataException{
+    public String deletePerson(@QueryParam("id") Long id,
+                               @HeaderParam("Username") String username,
+                               @HeaderParam("Password") String password) throws NoDataException{
         if (id == null)
             throw NoDataException.DEFAULT_INSTANCE;
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.deletePerson(id).toString();
+        if (authenticate(username, password)) {
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            return dao.deletePerson(id).toString();
+        }
+        return new Integer(1).toString();
     }
 }

@@ -8,26 +8,39 @@ package com.mikael0.soap.client;
 import com.mikael0.soap.client.generated.NoDataException;
 import com.mikael0.soap.client.generated.Person;
 import com.mikael0.soap.client.generated.PersonService;
+import com.mikael0.soap.client.generated.PersonWebService;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.MessageContext;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class WebServiceClient {
 
+    public static void setupCredentials(String url, PersonWebService port){
+        Map<String, Object> req_ctx = ((BindingProvider)port).getRequestContext();
+        req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        headers.put("Username", Collections.singletonList("mikael0"));
+        headers.put("Password", Collections.singletonList("password"));
+        req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
+    }
+
     public static void main(String[] args) throws MalformedURLException {
-        URL url = new URL("http://localhost:8080/PersonService?wsdl");
+        URL url = new URL("http://localhost:8090/PersonService?wsdl");
         PersonService personService = new PersonService(url);
+        PersonWebService port = personService.getPersonWebServicePort();
+        setupCredentials("http://localhost:8090/PersonService?wsdl", port);
         Person search = new Person();
         search.setAge(27);
-        List<Person> persons = personService.getPersonWebServicePort().getPersons();
-        List<Person> searchPersons = personService.getPersonWebServicePort().getPersonsByParameters(search);
+        List<Person> persons = port.getPersons();
+        List<Person> searchPersons = port.getPersonsByParameters(search);
         for (Person person : persons) {
             System.out.println("name: " + person.getName()
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
@@ -54,35 +67,35 @@ public class WebServiceClient {
             xmlgcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
         } catch (Exception e) {
         }
-        Long id = personService.getPersonWebServicePort().createPerson("Mikhail", "Belenko", 20, "M", xmlgcal);
+        Long id = port.createPerson("Mikhail", "Belenko", 20, "M", xmlgcal);
 
-        persons = personService.getPersonWebServicePort().getPersons();
+        persons = port.getPersons();
         for (Person person : persons) {
             System.out.println("name: " + person.getName()
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
         try {
-            personService.getPersonWebServicePort().updatePerson(id, null, null, 42, null, null);
+            port.updatePerson(id, null, null, 42, null, null);
         }
         catch (NoDataException e){
             e.printStackTrace();
         }
-        persons = personService.getPersonWebServicePort().getPersons();
+        persons = port.getPersons();
         for (Person person : persons) {
             System.out.println("name: " + person.getName()
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
-        personService.getPersonWebServicePort().deletePerson(id);
-        persons = personService.getPersonWebServicePort().getPersons();
+        port.deletePerson(id);
+        persons = port.getPersons();
         for (Person person : persons) {
             System.out.println("name: " + person.getName()
                     + ", surname: " + person.getSurname() + ", age: " + person.getAge()
                     + ", sex: " + String.valueOf(person.getSex()) + ", birth: " + person.getBirth());
         }
         try {
-            personService.getPersonWebServicePort().updatePerson(666l, null, null, 42, null, null);
+            port.updatePerson(666l, null, null, 42, null, null);
         }
         catch (NoDataException e){
             e.printStackTrace();

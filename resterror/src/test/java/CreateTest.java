@@ -25,7 +25,7 @@ public class CreateTest {
 
     @Test
     public void testCreate(){
-       String ret = service.createPerson("IVAN", "IVANOV", 42, "M",  System.currentTimeMillis());
+       String ret = service.createPerson("IVAN", "IVANOV", 42, "M",  System.currentTimeMillis(), "mikael0", "password");
        assertNotNull(ret);
        assertNotSame(0, ret);
     }

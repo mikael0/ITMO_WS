@@ -24,7 +24,7 @@ public class DeleteTest {
     public void testDelete(){
         String ret = null;
         try {
-             ret = service.deletePerson(13l);
+             ret = service.deletePerson(13l, "mikael0", "password");
         }
         catch (NoDataException e){
             fail();

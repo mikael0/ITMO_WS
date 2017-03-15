@@ -7,11 +7,39 @@ package com.mikael0.soap.standaloneerror;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
 
 @WebService(serviceName = "PersonService")
 public class PersonWebService {
+
+    @Resource
+    WebServiceContext wsc;
+
+    private boolean authenticate(){
+        Map http_headers = (Map) wsc.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        List userList = (List) http_headers.get("Username");
+        List passList = (List) http_headers.get("Password");
+
+        String username = "";
+        String password = "";
+
+        if(userList!=null){
+            //get username
+            username = userList.get(0).toString();
+        }
+
+        if(passList!=null){
+            //get password
+            password = passList.get(0).toString();
+        }
+
+        return username.equals("mikael0") && password.equals("password");
+    }
 
     @WebMethod(operationName = "getPersons")
     public List<Person> getPersons() {
@@ -47,23 +75,33 @@ public class PersonWebService {
 
     @WebMethod(operationName = "createPerson")
     public Long createPerson(String name, String surname, int age, String sex, Date birth){
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.createPerson(name, surname, age, sex, birth);
+
+        //Should validate username and password with database
+        if (authenticate()){
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            return dao.createPerson(name, surname, age, sex, birth);
+        }
+        return null;
     }
 
     @WebMethod(operationName = "updatePerson")
     public int updatePerson(Long id, String name, String surname, int age, String sex, Date birth)
     throws NoDataException {
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        if (dao.updatePerson(id, name, surname, age, sex, birth) != 0){
-            throw new NoDataException(null, PersonServiceFault.defaultInstance());
+        if (authenticate()) {
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            if (dao.updatePerson(id, name, surname, age, sex, birth) != 0) {
+                throw new NoDataException(null, PersonServiceFault.defaultInstance());
+            }
         }
-        return 0;
+        return 1;
     }
 
     @WebMethod(operationName = "deletePerson")
     public int deletePerson(Long id){
-        PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.deletePerson(id);
+        if (authenticate()) {
+            PostgreSQLDAO dao = new PostgreSQLDAO();
+            return dao.deletePerson(id);
+        }
+        return 1;
     }
 }
