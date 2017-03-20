@@ -1,6 +1,5 @@
 package com.mikael0.restcrud;
 
-import javax.jws.WebMethod;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.List;
 public class PersonResource {
 
     @GET
-    @Path("getByParams")
     public List<Person> getPersonsByParams(@QueryParam("name") String name,
                                    @QueryParam("surname") String surname,
                                    @QueryParam("age") Integer age,
@@ -41,15 +39,7 @@ public class PersonResource {
         return persons;
     }
 
-    @GET
-    @Path("get")
-    public List<Person> getPersons() {
-        List<Person> persons = new PostgreSQLDAO().getPersons("");
-        return persons;
-    }
-
-    @POST
-    @Path("create")
+    @PUT
     public String createPerson(@QueryParam("name") String name,
                              @QueryParam("surname") String surname,
                              @QueryParam("age") int age,
@@ -60,7 +50,6 @@ public class PersonResource {
     }
 
     @POST
-    @Path("update")
     public String updatePerson(@QueryParam("id") Long id,
                             @QueryParam("name") String name,
                             @QueryParam("surname") String surname,
@@ -72,8 +61,7 @@ public class PersonResource {
         return ret;
     }
 
-    @POST
-    @Path("delete")
+    @DELETE
     public String deletePerson(@QueryParam("id") Long id){
         PostgreSQLDAO dao = new PostgreSQLDAO();
         return dao.deletePerson(id).toString();

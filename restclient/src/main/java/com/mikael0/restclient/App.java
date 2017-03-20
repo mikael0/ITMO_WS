@@ -41,7 +41,7 @@ public class App {
                                                   Integer age,
                                                   String sex,
                                                   Date birth) {
-            WebResource webResource = client.resource(URL + "/getByParams");
+            WebResource webResource = client.resource(URL);
             if (name != null) {
                 webResource = webResource.queryParam("name", name);
             }
@@ -73,7 +73,7 @@ public class App {
                                                Integer age,
                                                String sex,
                                                Date birth) {
-            WebResource webResource = client.resource(URL + "/update");
+            WebResource webResource = client.resource(URL);
             if (name != null) {
                 webResource = webResource.queryParam("name", name);
             }
@@ -106,14 +106,14 @@ public class App {
 
         private static String deletePerson(Client client,
                                                  @NotNull Long id) {
-            WebResource webResource = client.resource(URL + "/delete");
+            WebResource webResource = client.resource(URL);
             if (id != null)
                 webResource = webResource.queryParam("id", id.toString());
             ClientResponse response =
                     webResource.accept(MediaType.APPLICATION_JSON)
                             .header("Username", "mikael0")
                             .header("Password", "password")
-                            .post(ClientResponse.class);
+                            .delete(ClientResponse.class);
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
                 throw new IllegalStateException(response.getEntity(String.class));
             }
@@ -127,7 +127,7 @@ public class App {
                                                  @NotNull Integer age,
                                                  @NotNull String sex,
                                                  @NotNull Date birth) {
-            WebResource webResource = client.resource(URL + "/create");
+            WebResource webResource = client.resource(URL);
             webResource = webResource.queryParam("name", name);
             webResource = webResource.queryParam("surname", surname);
             webResource = webResource.queryParam("age", age.toString());
@@ -137,7 +137,7 @@ public class App {
                     webResource.accept(MediaType.APPLICATION_JSON)
                             .header("Username", "mikael0")
                             .header("Password", "password")
-                            .post(ClientResponse.class);
+                            .put(ClientResponse.class);
             System.out.println(response.getStatus());
             if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
                 throw new IllegalStateException("Request failed");

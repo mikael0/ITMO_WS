@@ -21,7 +21,6 @@ public class PersonResource {
     }
 
     @GET
-    @Path("getByParams")
     public List<Person> getPersonsByParams(@QueryParam("name") String name,
                                    @QueryParam("surname") String surname,
                                    @QueryParam("age") Integer age,
@@ -48,15 +47,7 @@ public class PersonResource {
         return persons;
     }
 
-    @GET
-    @Path("get")
-    public List<Person> getPersons() {
-        List<Person> persons = new PostgreSQLDAO().getPersons("");
-        return persons;
-    }
-
-    @POST
-    @Path("create")
+    @PUT
     public String createPerson(@QueryParam("name") String name,
                                @QueryParam("surname") String surname,
                                @QueryParam("age") int age,
@@ -72,7 +63,6 @@ public class PersonResource {
     }
 
     @POST
-    @Path("update")
     public String updatePerson(@QueryParam("id") Long id,
                             @QueryParam("name") String name,
                             @QueryParam("surname") String surname,
@@ -92,8 +82,7 @@ public class PersonResource {
         return new Integer(1).toString();
     }
 
-    @POST
-    @Path("delete")
+    @DELETE
     public String deletePerson(@QueryParam("id") Long id,
                                @HeaderParam("Username") String username,
                                @HeaderParam("Password") String password) throws NoDataException{

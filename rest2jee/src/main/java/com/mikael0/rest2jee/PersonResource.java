@@ -24,7 +24,6 @@ public class PersonResource {
     private DataSource dataSource;
 
     @GET
-    @Path("getByParams")
     public List<Person> getPersonsByParams(@QueryParam("name") String name,
                                    @QueryParam("surname") String surname,
                                    @QueryParam("age") Integer age,
@@ -57,17 +56,4 @@ public class PersonResource {
         return persons;
     }
 
-
-    @GET
-    @Path("get")
-    public List<Person> getPersons() {
-        List<Person> persons = null;
-        try {
-            persons = new PostgreSQLDAO(dataSource.getConnection()).getPersons("");
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return persons;
-    }
 }

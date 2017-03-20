@@ -20,18 +20,6 @@ public class GetTest {
         service = new PersonResource();
     }
 
-    @Test
-    public void testGet(){
-        List<Person> ret = service.getPersons();
-        assertNotNull(ret);
-        for (Person person : ret){
-            assertNotNull(person.getName());
-            assertNotNull(person.getSurname());
-            assertNotNull(person.getAge());
-            assertNotNull(person.getSex());
-            assertNotNull(person.getBirth());
-        }
-    }
 
     @Test
     public void testDaoGet(){

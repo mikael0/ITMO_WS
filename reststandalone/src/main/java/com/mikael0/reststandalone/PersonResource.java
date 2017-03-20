@@ -16,7 +16,6 @@ import java.util.List;
 public class PersonResource {
 
     @GET
-    @Path("getByParams")
     public List<Person> getPersonsByParams(@QueryParam("name") String name,
                                    @QueryParam("surname") String surname,
                                    @QueryParam("age") Integer age,
@@ -40,14 +39,6 @@ public class PersonResource {
         }
         condition = condition.substring(0, condition.length() - 4);
         List<Person> persons = new PostgreSQLDAO().getPersons(condition);
-        return persons;
-    }
-
-
-    @GET
-    @Path("get")
-    public List<Person> getPersons() {
-        List<Person> persons = new PostgreSQLDAO().getPersons("");
         return persons;
     }
 }
