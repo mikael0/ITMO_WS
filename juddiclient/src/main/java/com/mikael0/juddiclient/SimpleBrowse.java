@@ -60,7 +60,7 @@ public class SimpleBrowse {
     public void Browse(String[] args) {
         try {
 
-            String token = GetAuthKey("uddi", "uddi");
+            String token = GetAuthKey("mikael0", "password");
             BusinessList findBusiness = GetBusinessList(token);
             PrintBusinessInfo(findBusiness.getBusinessInfos());
             PrintBusinessDetails(findBusiness.getBusinessInfos(), token);

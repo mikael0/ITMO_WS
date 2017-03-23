@@ -6,8 +6,8 @@ package com.mikael0.juddiclient;
 public class App {
 
     public static void main(String[] args) {
-        SimplePublish sp = new SimplePublish();
-        sp.publish("PersonBusiness", "PersonService", "localhost:8090/PersonService");
+        SimplePublishPortable spp = new SimplePublishPortable();
+        spp.publish();
 
         SimpleBrowse sb = new SimpleBrowse();
         String[] strs ={"PersonService"};
